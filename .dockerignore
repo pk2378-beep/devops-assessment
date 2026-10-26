@@ -1,0 +1,11 @@
+target/
+.git/
+k8s/
+argocd/
+screenshots/
+*.md
+.idea/
+.vscode/
+*.log
+.env
+azure-pipelines.yml

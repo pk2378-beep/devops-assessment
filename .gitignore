@@ -1,0 +1,14 @@
+target/
+*.log
+logs/
+.idea/
+.vscode/
+*.iml
+.env
+.env.*
+*.pem
+*.key
+*credentials*
+*secret*.yaml
+application-local.properties
+.DS_Store
