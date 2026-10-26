@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevOps Demo</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 3rem auto; padding: 0 1rem; color: #1f2937; }
+    h1 { margin-bottom: .25rem; }
+    .ok { color: #15803d; font-weight: 600; }
+    .bad { color: #b91c1c; font-weight: 600; }
+    pre { background: #f3f4f6; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>DevOps Demo</h1>
+  <p>Spring Boot &rarr; Docker &rarr; Azure DevOps &rarr; Kubernetes &rarr; ArgoCD</p>
+  <p>Status: <span id="status">checking...</span></p>
+  <pre id="out">loading /api/health ...</pre>
+  <p><a href="/api/health">/api/health</a></p>
+  <script>
+    fetch('/api/health')
+      .then(r => r.json())
+      .then(d => {
+        const s = document.getElementById('status');
+        s.textContent = d.status; s.className = 'ok';
+        document.getElementById('out').textContent = JSON.stringify(d, null, 2);
+      })
+      .catch(e => {
+        const s = document.getElementById('status');
+        s.textContent = 'DOWN'; s.className = 'bad';
+        document.getElementById('out').textContent = String(e);
+      });
+  </script>
+</body>
+</html>
