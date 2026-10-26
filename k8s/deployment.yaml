@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-demo
+  namespace: devops-demo
+  labels:
+    app: devops-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-demo
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: devops-demo
+    spec:
+      containers:
+        - name: devops-demo
+          # CI rewrites this line with the commit SHA tag. Replace pavandevops123456 once.
+          image: pavandevops123456/devops-demo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APP_VERSION
+              value: "1.0.0"
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 192Mi
+            limits:
+              cpu: 500m
+              memory: 384Mi
