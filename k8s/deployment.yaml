@@ -23,7 +23,7 @@ spec:
       containers:
         - name: devops-demo
           # CI rewrites this line with the commit SHA tag. Replace pavandevops123456 once.
-          image: pavandevops123456/devops-demo:4
+          image: pavandevops123456/devops-demo:5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
